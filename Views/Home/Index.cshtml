@@ -2,7 +2,16 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@model List<Bowler>
+
+<h1>Bowlers</h1>
+<a class="btn btn-info btn-lg" asp-controller="Home" asp-action="BowlerForm">Add New Bowler</a>
+
+<ul>
+    @foreach (var b in Model)
+    {
+        <li>@b.BowlerID - @b.BowlerLastName, @b.BowlerFirstName </li>
+        <a class="btn btn-info btn-sml" asp-controller="Home" asp-action="EditAppt" asp-route-apptid="@b.BowlerID">Edit</a>
+        <a class="btn btn-danger btn-sm" asp-controller="Home" asp-action="DeleteAppt" asp-route-apptid="@b.BowlerID">Delete</a>
+    }
+</ul>
