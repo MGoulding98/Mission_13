@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Mission_13.Models
 {
-    public class BowlingDbContext : DbContext
+    public class BowlersDbContext : DbContext
     {
-        public BowlingDbContext(DbContextOptions<BowlingDbContext> options) : base(options)
+        public BowlersDbContext(DbContextOptions<BowlersDbContext> options) : base(options)
         {
 
         }
