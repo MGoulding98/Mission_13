@@ -5,15 +5,46 @@
 @model List<Bowler>
 
 <h1>Bowlers</h1>
-<a class="btn btn-info btn-lg" asp-controller="Home" asp-action="BowlerForm">Add New Bowler</a>
 
-<ul>
-    @foreach (Bowler b in Model)
-    {
-        <li>@b.BowlerID - @b.BowlerLastName, @b.BowlerFirstName </li>
+<form method="get" asp-action="Index">
+    <select class="form-select" name="TeamID">
+        <option value="">Select a team to view</option>
+        @foreach (Team c in ViewBag.Teams)
+        {
+            <option value="@c.TeamID">@c.TeamName</option>
+        }
+    </select>
 
-        <a class="btn btn-info btn-sml" asp-controller="Home" asp-action="EditBowler" asp-route-bowlerid="@b.BowlerID">Edit</a>
+    <div>
+        <br /><input class="btn btn-primary" type="submit" value="Submit" asp-route-teamid="TeamID"/>
+    </div>
+</form><br /><br />
 
-        <a class="btn btn-danger btn-sm" asp-controller="Home" asp-action="DeleteBowler" asp-route-bowlerid="@b.BowlerID">Delete</a>
-    }
-</ul>
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Bowler ID</th>
+                <th>Last Name</th>
+                <th>First Name</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (Bowler b in Model)
+            {
+                <tr>
+                    <td>@b.BowlerID</td>
+                    <td>@b.BowlerLastName</td>
+                    <td>@b.BowlerFirstName</td>
+                    <td>
+                        <a class="btn btn-info btn-sml" asp-controller="Home" asp-action="EditBowler" asp-route-bowlerid="@b.BowlerID">Edit</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger btn-sm" asp-controller="Home" asp-action="DeleteBowler" asp-route-bowlerid="@b.BowlerID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a class="btn btn-info btn-lg" asp-controller="Home" asp-action="BowlerForm">Add New Bowler</a>

@@ -21,6 +21,13 @@ namespace Mission_13.Models
             return bowler;
         }
 
+        public List<Bowler> GetTeam(int teamid)
+        {
+            var team = _context.Bowlers.Where(x => x.TeamID == teamid).ToList();
+
+            return team;
+        }
+
         public void SaveBowler(Bowler b)
         {
             _context.SaveChanges();

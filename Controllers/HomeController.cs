@@ -22,17 +22,26 @@ namespace Mission_13.Controllers
             _repo = temp;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int teamid = 0)
         {
-            //var bowlers = _context.Bowlers
-            //    //.Include(x => ) USED FOR LINKING TO THE TEAMS TABLE
-            //    .FromSqlRaw("SELECT * FROM BowlingLeagueExample") // Maybe for only displaying certain teams
-            //    .ToList();
+            //Home page
+            if (teamid == 0)
+            {
+                ViewBag.Teams = tContext.Teams.ToList();
 
-            var bowlers = _repo.Bowlers
-                .ToList();
+                var bowlers = _repo.Bowlers
+                    .ToList();
 
-            return View(bowlers);
+                return View(bowlers);
+            }
+            // Filtered results
+            else
+            {
+                ViewBag.Teams = tContext.Teams.ToList();
+                var bowlers = _repo.GetTeam(teamid);
+
+                return View(bowlers);
+            }
         }
 
         // ADD Bowler
