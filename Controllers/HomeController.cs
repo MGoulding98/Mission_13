@@ -13,9 +13,12 @@ namespace Mission_13.Controllers
     public class HomeController : Controller
     {
         private IBowlersRepository _repo { get; set; }
+
+        private BowlersDbContext tContext { get; set; }
         private Bowler bowler { get; set; }
-        public HomeController(IBowlersRepository temp)
+        public HomeController(IBowlersRepository temp, BowlersDbContext context)
         {
+            tContext = context;
             _repo = temp;
         }
 
@@ -36,7 +39,7 @@ namespace Mission_13.Controllers
         [HttpGet]
         public IActionResult BowlerForm()
         {
-            //ViewBag.Categories = tContext.Categories.ToList();
+            ViewBag.Teams = tContext.Teams.ToList();
             return View();
         }
 
@@ -57,41 +60,30 @@ namespace Mission_13.Controllers
         }
 
 
-        //// EDIT TASK
-        //[HttpGet]
-        //public IActionResult EditTask(int taskid)
-        //{
-        //    ViewBag.Categories = tContext.Categories.ToList();
+        // EDIT TASK
+        [HttpGet]
+        public IActionResult EditBowler(int bowlerid)
+        {
+            var bowler = _repo.GetBowler(bowlerid);
 
-        //    var task = tContext.Tasks.Single(x => x.TaskId == taskid);
-        //    return View("TaskForm", task);
-        //}
+            return View("BowlerForm", bowler);
+        }
 
-        //[HttpPost]
-        //public IActionResult EditTask(TaskModel t)
-        //{
-        //    tContext.Update(t);
-        //    tContext.SaveChanges();
+        [HttpPost]
+        public IActionResult EditBowler(Bowler b)
+        {
+            _repo.EditBowler(b);
 
-        //    return RedirectToAction("TaskQuadrants");
-        //}
+            return RedirectToAction("Index");
+        }
 
 
-        //// Delete task
-        //[HttpGet]
-        //public IActionResult DeleteTask(int taskid)
-        //{
-        //    var task = tContext.Tasks.Single(x => x.TaskId == taskid);
-        //    return View(task);
-        //}
+        // Delete Bowler
+        public IActionResult DeleteBowler(int bowlerid)
+        {
+            _repo.DeleteBowler(bowlerid);
 
-        //[HttpPost]
-        //public IActionResult DeleteTask(TaskModel t)
-        //{
-        //    tContext.Tasks.Remove(t);
-        //    tContext.SaveChanges();
-
-        //    return RedirectToAction("TaskQuadrants");
-        //}
+            return RedirectToAction("Index");
+        }
     }
 }

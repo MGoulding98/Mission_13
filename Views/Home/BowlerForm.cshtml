@@ -6,7 +6,7 @@
 
 <h2>Bowler Information:</h2>
 
-<form method="post" asp-action="BowlerForm">
+<form method="post">
 
     <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -56,6 +56,14 @@
         <label asp-for="TeamID">Team ID (CHANGE THIS):</label>
         <input asp-for="TeamID" class="form-control" />
     </div>
+
+    <select class="form-select" asp-for="TeamID">
+        <option value="">Select a Category</option> @*How do I make this default to the person's team when it is not a new bowler?*@
+        @foreach (Team c in ViewBag.Teams)
+        {
+            <option value="@c.TeamID">@c.TeamName</option>
+        }
+    </select>
 
     <div>
         <input class="btn btn-primary" type="submit" value="Submit" />

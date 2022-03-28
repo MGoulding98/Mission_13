@@ -14,6 +14,13 @@ namespace Mission_13.Models
         }
         public IQueryable<Bowler> Bowlers => _context.Bowlers;
 
+        public Bowler GetBowler(int bowlerid)
+        {
+            var bowler = _context.Bowlers.Single(x => x.BowlerID == bowlerid);
+
+            return bowler;
+        }
+
         public void SaveBowler(Bowler b)
         {
             _context.SaveChanges();
@@ -25,9 +32,16 @@ namespace Mission_13.Models
             _context.SaveChanges();
         }
 
-        public void DeleteBook(Bowler b)
+        public void EditBowler(Bowler b)
         {
-            _context.Remove(b);
+            _context.Update(b);
+            _context.SaveChanges();
+        }
+
+        public void DeleteBowler(int bowlerid)
+        {
+            var bowler = _context.Bowlers.Single(x => x.BowlerID == bowlerid);
+            _context.Bowlers.Remove(bowler);
             _context.SaveChanges();
         }
     }
