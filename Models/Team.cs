@@ -13,5 +13,6 @@ namespace Mission_13.Models
         public int TeamID { get; set; }
         [Required]
         public string TeamName { get; set; }
+
     }
 }

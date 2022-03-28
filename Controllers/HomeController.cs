@@ -65,6 +65,7 @@ namespace Mission_13.Controllers
         public IActionResult EditBowler(int bowlerid)
         {
             var bowler = _repo.GetBowler(bowlerid);
+            ViewBag.Teams = tContext.Teams.ToList();
 
             return View("BowlerForm", bowler);
         }
