@@ -11,7 +11,14 @@
         <option value="">Select a team to view</option>
         @foreach (Team c in ViewBag.Teams)
         {
-            <option value="@c.TeamID">@c.TeamName</option>
+            @if (c.TeamName == ViewBag.TeamName)
+            {
+                <option value="@c.TeamID" selected>@c.TeamName</option>
+            }
+            else
+            {
+                <option value="@c.TeamID">@c.TeamName</option>
+            }
         }
     </select>
 
@@ -19,6 +26,8 @@
         <br /><input class="btn btn-primary" type="submit" value="Submit" asp-route-teamid="TeamID"/>
     </div>
 </form><br /><br />
+
+<h2>Filtering by: @ViewBag.TeamName</h2>
 
     <table class="table table-sm table-striped table-bordered">
         <thead>

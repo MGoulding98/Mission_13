@@ -24,10 +24,11 @@ namespace Mission_13.Controllers
 
         public IActionResult Index(int teamid = 0)
         {
-            //Home page
+            // Home page
             if (teamid == 0)
             {
                 ViewBag.Teams = tContext.Teams.ToList();
+                ViewBag.TeamName = "All Bowlers";
 
                 var bowlers = _repo.Bowlers
                     .ToList();
@@ -38,6 +39,7 @@ namespace Mission_13.Controllers
             else
             {
                 ViewBag.Teams = tContext.Teams.ToList();
+                ViewBag.TeamName = tContext.Teams.Single(x => x.TeamID == teamid).TeamName;
                 var bowlers = _repo.GetTeam(teamid);
 
                 return View(bowlers);
