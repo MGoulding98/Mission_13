@@ -40,7 +40,7 @@ namespace Mission_13.Controllers
             {
                 ViewBag.Teams = tContext.Teams.ToList();
                 ViewBag.TeamName = tContext.Teams.Single(x => x.TeamID == teamid).TeamName;
-                var bowlers = _repo.GetTeam(teamid);
+                var bowlers = _repo.GetTeamMembers(teamid);
 
                 return View(bowlers);
             }
