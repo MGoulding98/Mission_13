@@ -27,6 +27,9 @@ namespace Mission_13.Models
         public string BowlerZip { get; set; }
         [MaxLength(14, ErrorMessage = "14 characters max")]
         public string BowlerPhoneNumber { get; set; }
+
+        // Foreign Key Relationship
         public int TeamID { get; set; }
+        public Team Team { get; set; }
     }
 }
